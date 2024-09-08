@@ -1,0 +1,88 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.202.3/containers/python-3
+{
+	"name": "rag_chromadb",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": "..",
+		"args": {
+
+		}
+	},
+	"features": {
+		
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-python.flake8",
+				"ms-python.isort",
+				"ms-python.vscode-pylance",
+				"nwgh.bandit",
+				"johnpapa.vscode-peacock",
+				"codeium.codeium",
+				"shardulm94.trailing-spaces",
+				"ms-python.black-formatter",
+				"humao.rest-client",
+				"mhutchie.git-graph",
+				"donjayamanne.githistory"
+			],
+			"settings": {
+				"terminal.integrated.profiles.linux": {
+					"bash": {
+						"path": "/bin/bash"
+					}
+				},
+				"editor.formatOnSave": true,
+				"editor.formatOnSaveMode": "file",
+				"editor.rulers": [
+					100
+				],
+				"editor.defaultFormatter": "ms-python.black-formatter",
+				"workbench.colorCustomizations": {
+					"editorRuler.foreground": "#ff4081"
+				},
+				"flake8.args": [
+					"--max-line-length=100",
+					"--ignore=E203"
+				],
+				"flake8.lintOnChange": true,
+				"flake8.showNotification": "onWarning",
+				"bandit.args": [
+					"-r",
+					"--configfile",
+					"${workspaceFolder}/src/bandit.yaml"
+				],
+				"python.formatting.provider": "black",
+				"python.formatting.blackArgs": [
+					"--line-length",
+					"100"
+				],
+				"python.defaultInterpreterPath": "/usr/local/bin/python",
+				"python.languageServer": "Pylance",
+				"python.analysis.typeCheckingMode": "basic",
+				"python.analysis.diagnosticMode":"workspace",
+				"python.analysis.completeFunctionParens":true,
+				"python.testing.pytestArgs": [
+					"src"
+				]
+			}
+		}
+	},
+	"remoteEnv": {
+		
+	},
+	"mounts": [
+		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+	],
+	"postCreateCommand": "pip install -r src/requirements.txt"
+
+	// Use 'portsAttributes' to set default properties for specific forwarded ports. More info: https://code.visualstudio.com/docs/remote/devcontainerjson-reference.
+	// "portsAttributes": {
+	// 	"5070": {
+	// 		"label": "PORT",
+	// 		"onAutoForward": "notify"
+	// 	}
+	// }
+}
